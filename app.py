@@ -43,7 +43,7 @@ def clean_headers(data):
         fixed_headers.append(h_clean)
     return fixed_headers
 
-@st.cache_data(ttl=300)
+
 def load_paint_data():
     return pd.DataFrame(ws_paint.get_all_records())
 
