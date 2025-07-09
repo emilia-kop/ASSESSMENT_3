@@ -21,6 +21,11 @@ sheet = client.open_by_key(SHEET_ID)
 
 st.title("COST ESTIMATOR (Tinkering, R&R, Painting)")
 
+# Add refresh button to clear cache
+if st.button("🔄 Refresh Google Sheet Data"):
+    st.cache_data.clear()
+    st.rerun()
+
 # Read each worksheet
 ws_paint = sheet.worksheet("DATABASE_PAINT")
 ws_lab = sheet.worksheet("DATABASE_LAB")
@@ -43,21 +48,18 @@ def clean_headers(data):
         fixed_headers.append(h_clean)
     return fixed_headers
 
-
+# Data loading functions (no caching)
 def load_paint_data():
     return pd.DataFrame(ws_paint.get_all_records())
 
-@st.cache_data(ttl=300)
 def load_labour_data():
     data = ws_lab.get_all_values()
     headers = clean_headers(data)
     return pd.DataFrame(data[1:], columns=headers)
 
-@st.cache_data(ttl=300)
 def load_tinkering_data():
     return pd.DataFrame(ws_tink.get_all_values())
 
-@st.cache_data(ttl=300)
 def load_rnr_data():
     return pd.DataFrame(ws_rnr.get_all_values())
 
