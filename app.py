@@ -69,7 +69,7 @@ df_labour = load_labour_data()
 df_tinkering = load_tinkering_data()
 df_rnr = load_rnr_data()
 
-st.write("LABOUR COLUMNS:", df_labour.columns.tolist())
+
 
 
 # Drop fully empty rows
